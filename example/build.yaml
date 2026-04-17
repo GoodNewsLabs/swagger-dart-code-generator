@@ -23,6 +23,7 @@ targets:
           use_default_null_for_lists: false
           override_equals_and_hashcode: true
           build_only_models: false
+          wrap_requests_with_stack_trace_chain: true
           additional_headers:
             - "Cache-Control"
           overriden_models:

@@ -1,5 +1,16 @@
 targets:
+  $default:
+    # example/ is a separate package with its own pubspec; exclude it so root
+    # build_runner does not need chopper and other example-only deps.
+    sources:
+      - lib/**
+      - test/**
+      - $package$
   swagger_dart_code_generator:swagger_dart_code_generator:
+    sources:
+      - lib/**
+      - test/**
+      - $package$
     builders:
       swagger_dart_code_generator:
         enabled: True

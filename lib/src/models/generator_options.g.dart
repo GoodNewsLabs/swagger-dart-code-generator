@@ -44,8 +44,8 @@ GeneratorOptions _$GeneratorOptionsFromJson(Map json) => GeneratorOptions(
           )
           .toList() ??
       const <ResponseOverrideValueMap>[],
-  inputFolder: json['input_folder'] as String,
-  outputFolder: json['output_folder'] as String,
+  inputFolder: json['input_folder'] as String? ?? '',
+  outputFolder: json['output_folder'] as String? ?? '',
   enumsCaseSensitive: json['enums_case_sensitive'] as bool? ?? true,
   useRequiredAttributeForHeaders:
       json['use_required_attribute_for_headers'] as bool? ?? true,
@@ -125,6 +125,8 @@ GeneratorOptions _$GeneratorOptionsFromJson(Map json) => GeneratorOptions(
           )
           .toList() ??
       [],
+  wrapRequestsWithStackTraceChain:
+      json['wrap_requests_with_stack_trace_chain'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$GeneratorOptionsToJson(
@@ -166,6 +168,8 @@ Map<String, dynamic> _$GeneratorOptionsToJson(
   'custom_return_type': instance.customReturnType,
   'exclude_paths': instance.excludePaths,
   'custom_annotations': instance.customAnnotations,
+  'wrap_requests_with_stack_trace_chain':
+      instance.wrapRequestsWithStackTraceChain,
 };
 
 DefaultValueMap _$DefaultValueMapFromJson(Map<String, dynamic> json) =>

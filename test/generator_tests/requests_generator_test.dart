@@ -67,5 +67,28 @@ void main() {
       expect(result,
           contains('Future<chopper.Response<CarModel>> carsMultipartPost'));
     });
+
+    test('Should wrap private calls with stack_trace.Chain.capture when enabled',
+        () {
+      final wrapped = SwaggerRequestsGenerator(
+        GeneratorOptions(
+          inputFolder: '',
+          outputFolder: '',
+          ignoreHeaders: true,
+          wrapRequestsWithStackTraceChain: true,
+        ),
+      ).generate(
+        swaggerRoot: root,
+        className: 'CarsService',
+        fileName: 'cars_service',
+        allEnums: [],
+      );
+
+      expect(
+        wrapped,
+        contains(
+            'return stack_trace.Chain.capture(() => _carsGet('),
+      );
+    });
   });
 }

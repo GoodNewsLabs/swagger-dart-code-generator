@@ -14,6 +14,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart' show MultipartFile;
 import 'package:chopper/chopper.dart' as chopper;
+import 'package:stack_trace/stack_trace.dart' as stack_trace;
 import 'pet_service_swagger.enums.swagger.dart' as enums;
 import 'pet_service_swagger.metadata.swagger.dart';
 export 'pet_service_swagger.enums.swagger.dart';
@@ -57,7 +58,9 @@ abstract class PetServiceSwagger extends ChopperService {
   Future<chopper.Response> petPost({required Pet? body, dynamic cacheControl}) {
     generatedMapping.putIfAbsent(Pet, () => Pet.fromJsonFactory);
 
-    return _petPost(body: body, cacheControl: cacheControl?.toString());
+    return stack_trace.Chain.capture(
+      () => _petPost(body: body, cacheControl: cacheControl?.toString()),
+    );
   }
 
   ///Add a new pet to the store
@@ -84,7 +87,9 @@ abstract class PetServiceSwagger extends ChopperService {
   Future<chopper.Response> petPut({required Pet? body, dynamic cacheControl}) {
     generatedMapping.putIfAbsent(Pet, () => Pet.fromJsonFactory);
 
-    return _petPut(body: body, cacheControl: cacheControl?.toString());
+    return stack_trace.Chain.capture(
+      () => _petPut(body: body, cacheControl: cacheControl?.toString()),
+    );
   }
 
   ///Update an existing pet
@@ -114,9 +119,11 @@ abstract class PetServiceSwagger extends ChopperService {
   }) {
     generatedMapping.putIfAbsent(Pet, () => Pet.fromJsonFactory);
 
-    return _petFindByStatusGet(
-      status: petFindByStatusGetStatusListToJson(status),
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () => _petFindByStatusGet(
+        status: petFindByStatusGetStatusListToJson(status),
+        cacheControl: cacheControl?.toString(),
+      ),
     );
   }
 
@@ -149,9 +156,9 @@ abstract class PetServiceSwagger extends ChopperService {
   }) {
     generatedMapping.putIfAbsent(Pet, () => Pet.fromJsonFactory);
 
-    return _petFindByTagsGet(
-      tags: tags,
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () =>
+          _petFindByTagsGet(tags: tags, cacheControl: cacheControl?.toString()),
     );
   }
 
@@ -185,10 +192,12 @@ abstract class PetServiceSwagger extends ChopperService {
   }) {
     generatedMapping.putIfAbsent(Pet, () => Pet.fromJsonFactory);
 
-    return _petPetIdGet(
-      petId: petId,
-      apiKey: apiKey?.toString(),
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () => _petPetIdGet(
+        petId: petId,
+        apiKey: apiKey?.toString(),
+        cacheControl: cacheControl?.toString(),
+      ),
     );
   }
 
@@ -222,11 +231,13 @@ abstract class PetServiceSwagger extends ChopperService {
     String? status,
     dynamic cacheControl,
   }) {
-    return _petPetIdPost(
-      petId: petId,
-      name: name,
-      status: status,
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () => _petPetIdPost(
+        petId: petId,
+        name: name,
+        status: status,
+        cacheControl: cacheControl?.toString(),
+      ),
     );
   }
 
@@ -261,10 +272,12 @@ abstract class PetServiceSwagger extends ChopperService {
     required int? petId,
     dynamic cacheControl,
   }) {
-    return _petPetIdDelete(
-      apiKey: apiKey?.toString(),
-      petId: petId,
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () => _petPetIdDelete(
+        apiKey: apiKey?.toString(),
+        petId: petId,
+        cacheControl: cacheControl?.toString(),
+      ),
     );
   }
 
@@ -304,11 +317,13 @@ abstract class PetServiceSwagger extends ChopperService {
       () => ApiResponse.fromJsonFactory,
     );
 
-    return _petPetIdUploadImagePost(
-      petId: petId,
-      additionalMetadata: additionalMetadata,
-      file: file,
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () => _petPetIdUploadImagePost(
+        petId: petId,
+        additionalMetadata: additionalMetadata,
+        file: file,
+        cacheControl: cacheControl?.toString(),
+      ),
     );
   }
 
@@ -344,9 +359,11 @@ abstract class PetServiceSwagger extends ChopperService {
     dynamic apiKey,
     dynamic cacheControl,
   }) {
-    return _storeInventoryGet(
-      apiKey: apiKey?.toString(),
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () => _storeInventoryGet(
+        apiKey: apiKey?.toString(),
+        cacheControl: cacheControl?.toString(),
+      ),
     );
   }
 
@@ -376,7 +393,9 @@ abstract class PetServiceSwagger extends ChopperService {
   }) {
     generatedMapping.putIfAbsent(Order, () => Order.fromJsonFactory);
 
-    return _storeOrderPost(body: body, cacheControl: cacheControl?.toString());
+    return stack_trace.Chain.capture(
+      () => _storeOrderPost(body: body, cacheControl: cacheControl?.toString()),
+    );
   }
 
   ///Place an order for a pet
@@ -406,9 +425,11 @@ abstract class PetServiceSwagger extends ChopperService {
   }) {
     generatedMapping.putIfAbsent(Order, () => Order.fromJsonFactory);
 
-    return _storeOrderOrderIdGet(
-      orderId: orderId,
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () => _storeOrderOrderIdGet(
+        orderId: orderId,
+        cacheControl: cacheControl?.toString(),
+      ),
     );
   }
 
@@ -438,9 +459,11 @@ abstract class PetServiceSwagger extends ChopperService {
     required int? orderId,
     dynamic cacheControl,
   }) {
-    return _storeOrderOrderIdDelete(
-      orderId: orderId,
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () => _storeOrderOrderIdDelete(
+        orderId: orderId,
+        cacheControl: cacheControl?.toString(),
+      ),
     );
   }
 
@@ -472,7 +495,9 @@ abstract class PetServiceSwagger extends ChopperService {
   }) {
     generatedMapping.putIfAbsent(User, () => User.fromJsonFactory);
 
-    return _userPost(body: body, cacheControl: cacheControl?.toString());
+    return stack_trace.Chain.capture(
+      () => _userPost(body: body, cacheControl: cacheControl?.toString()),
+    );
   }
 
   ///Create user
@@ -500,9 +525,11 @@ abstract class PetServiceSwagger extends ChopperService {
     required List<User>? body,
     dynamic cacheControl,
   }) {
-    return _userCreateWithArrayPost(
-      body: body,
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () => _userCreateWithArrayPost(
+        body: body,
+        cacheControl: cacheControl?.toString(),
+      ),
     );
   }
 
@@ -531,9 +558,11 @@ abstract class PetServiceSwagger extends ChopperService {
     required List<User>? body,
     dynamic cacheControl,
   }) {
-    return _userCreateWithListPost(
-      body: body,
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () => _userCreateWithListPost(
+        body: body,
+        cacheControl: cacheControl?.toString(),
+      ),
     );
   }
 
@@ -564,10 +593,12 @@ abstract class PetServiceSwagger extends ChopperService {
     required String? password,
     dynamic cacheControl,
   }) {
-    return _userLoginGet(
-      username: username,
-      password: password,
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () => _userLoginGet(
+        username: username,
+        password: password,
+        cacheControl: cacheControl?.toString(),
+      ),
     );
   }
 
@@ -594,7 +625,9 @@ abstract class PetServiceSwagger extends ChopperService {
 
   ///Logs out current logged in user session
   Future<chopper.Response> userLogoutGet({dynamic cacheControl}) {
-    return _userLogoutGet(cacheControl: cacheControl?.toString());
+    return stack_trace.Chain.capture(
+      () => _userLogoutGet(cacheControl: cacheControl?.toString()),
+    );
   }
 
   ///Logs out current logged in user session
@@ -622,9 +655,11 @@ abstract class PetServiceSwagger extends ChopperService {
   }) {
     generatedMapping.putIfAbsent(User, () => User.fromJsonFactory);
 
-    return _userUsernameGet(
-      username: username,
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () => _userUsernameGet(
+        username: username,
+        cacheControl: cacheControl?.toString(),
+      ),
     );
   }
 
@@ -657,10 +692,12 @@ abstract class PetServiceSwagger extends ChopperService {
   }) {
     generatedMapping.putIfAbsent(User, () => User.fromJsonFactory);
 
-    return _userUsernamePut(
-      username: username,
-      body: body,
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () => _userUsernamePut(
+        username: username,
+        body: body,
+        cacheControl: cacheControl?.toString(),
+      ),
     );
   }
 
@@ -691,9 +728,11 @@ abstract class PetServiceSwagger extends ChopperService {
     required String? username,
     dynamic cacheControl,
   }) {
-    return _userUsernameDelete(
-      username: username,
-      cacheControl: cacheControl?.toString(),
+    return stack_trace.Chain.capture(
+      () => _userUsernameDelete(
+        username: username,
+        cacheControl: cacheControl?.toString(),
+      ),
     );
   }
 

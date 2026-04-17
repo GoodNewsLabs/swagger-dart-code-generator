@@ -16,8 +16,8 @@ class GeneratorOptions {
     this.defaultValuesMap = const <DefaultValueMap>[],
     this.defaultHeaderValuesMap = const <DefaultHeaderValueMap>[],
     this.responseOverrideValueMap = const <ResponseOverrideValueMap>[],
-    required this.inputFolder,
-    required this.outputFolder,
+    this.inputFolder = '',
+    this.outputFolder = '',
     this.enumsCaseSensitive = true,
     this.useRequiredAttributeForHeaders = true,
     this.usePathForRequestNames = true,
@@ -42,6 +42,7 @@ class GeneratorOptions {
     this.urlencodedFileType = 'Map<String, String>',
     this.generateFirstSucceedResponse = true,
     this.customAnnotations = const[],
+    this.wrapRequestsWithStackTraceChain = false,
   });
 
   /// Build options from a JSON map.
@@ -70,7 +71,12 @@ class GeneratorOptions {
   final bool ignoreHeaders;
   final bool enumsCaseSensitive;
   final bool? includeIfNull;
+
+  /// Defaults to empty when JSON omits keys (e.g. build_runner bootstrapping this builder).
+  @JsonKey(defaultValue: '')
   final String inputFolder;
+
+  @JsonKey(defaultValue: '')
   final String outputFolder;
   final List<String> classesWithNullabeLists;
   final String cutFromModelNames;
@@ -86,6 +92,13 @@ class GeneratorOptions {
 
   @JsonKey(defaultValue: <CustomAnnotationMap>[])
   final List<CustomAnnotationMap> customAnnotations;
+
+  /// When true, public API methods wrap the private Chopper call in
+  /// `stack_trace.Chain.capture` so async stack traces are chained without
+  /// wrapping each call site in application code.
+  @JsonKey(defaultValue: false)
+  final bool wrapRequestsWithStackTraceChain;
+
   /// Convert this options instance to JSON.
   Map<String, dynamic> toJson() => _$GeneratorOptionsToJson(this);
 }

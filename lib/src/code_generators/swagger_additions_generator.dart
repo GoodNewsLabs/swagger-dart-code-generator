@@ -59,6 +59,10 @@ final Map<Type, Object Function(Map<String, dynamic>)> $mappingVariableName = {}
         ? 'import \'${options.overridenModels.firstWhere((e) => e.fileName == swaggerFileName).importUrl}\';'
         : '';
 
+    final stackTraceImport = options.wrapRequestsWithStackTraceChain
+        ? "\nimport 'package:stack_trace/stack_trace.dart' as stack_trace;"
+        : '';
+
     final chopperImports = buildOnlyModels
         ? ''
         : '''import 'package:chopper/chopper.dart';
@@ -67,7 +71,7 @@ import 'client_mapping.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart' show MultipartFile;
-import 'package:chopper/chopper.dart' as chopper;''';
+import 'package:chopper/chopper.dart' as chopper;$stackTraceImport''';
 
     final enumsImport = hasEnums
         ? "import '$swaggerFileName.enums.swagger.dart' as enums;"

@@ -27,6 +27,25 @@ void main() {
           contains("import 'swagger.fileName.enums.swagger.dart' as enums;"));
     });
 
+    test('Should include stack_trace import when wrapRequestsWithStackTraceChain',
+        () {
+      final gen = SwaggerAdditionsGenerator(
+        GeneratorOptions(
+          inputFolder: '',
+          outputFolder: '',
+          wrapRequestsWithStackTraceChain: true,
+        ),
+      );
+      final result = gen.generateImportsContent(
+          'swagger.fileName', true, false, false, false);
+
+      expect(
+        result,
+        contains(
+            "import 'package:stack_trace/stack_trace.dart' as stack_trace;"),
+      );
+    });
+
     test('Should generate indexes file', () {
       final result = generator.generateIndexes(<String>[
         'someFile.dart',

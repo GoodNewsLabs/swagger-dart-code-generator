@@ -474,7 +474,12 @@ class SwaggerRequestsGenerator extends SwaggerGeneratorBase {
           'generatedMapping.putIfAbsent($validatedName, () => $validatedName.fromJsonFactory);\n';
     });
 
-    return Code('$allModelsString\nreturn _$publicMethodName($parametersListString);');
+    final privateCall = '_$publicMethodName($parametersListString)';
+    final returnLine = options.wrapRequestsWithStackTraceChain
+        ? 'return stack_trace.Chain.capture(() => $privateCall);'
+        : 'return $privateCall;';
+
+    return Code('$allModelsString\n$returnLine');
   }
 
   List<Expression> _getMethodAnnotation({
